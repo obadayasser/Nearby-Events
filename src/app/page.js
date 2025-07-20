@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import EventList from "@/components/EventList";
-import EventMap from "@/components/EventMap";
-import AddEventModal from "@/components/AddEventModal";
-import AddEventButton from "@/components/AddEventButton";
-import FakeSocketListener from "@/components/FakeSocketListener";
+import dynamic from "next/dynamic";
+
+
+const EventMap = dynamic(() => import("@/components/EventMap"), { ssr: false });
+const EventList = dynamic(() => import("@/components/EventList"), { ssr: false });
+const FakeSocketListener = dynamic(() => import("@/components/FakeSocketListener"), { ssr: false });
+const AddEventModal = dynamic(() => import("@/components/AddEventModal"), { ssr: false });
+const AddEventButton = dynamic(() => import("@/components/AddEventButton"), { ssr: false });
 
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -13,7 +16,7 @@ export default function HomePage() {
 
   return (
     <main className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-      <FakeSocketListener /> 
+      <FakeSocketListener />
       <section>
         <EventList />
       </section>
@@ -32,3 +35,4 @@ export default function HomePage() {
     </main>
   );
 }
+
